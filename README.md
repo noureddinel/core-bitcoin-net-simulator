@@ -99,5 +99,5 @@ $ python teardown.py
 * **Noureddine Lasla** - *nlasla@hbku.edu.qa* 
 
 ## Conference paper
-https://www.researchgate.net/publication/338051623_Local_Bitcoin_Network_Simulator_for_Performance_Evaluation_Using_Lightweight_Virtualization?_sg=uCWxRZuaF3lmGexaBfyg3q52O93l4ft5TA0RICvl0TH4_qTDk0kyoibbKEk2N6cP4Xu_qjkkyE2AdCHthVkkIJ28dePOgGm8nT8f9UFv.yKodJ6cGhdJoPv0TmvBtBV31YbyvenrDmAPhM_OrZZYwTd0SKnktOyPgmx6kM3EFaNqs0KYZmULp9pxyyq_uQA
+https://arxiv.org/pdf/2002.01243.pdf
 
