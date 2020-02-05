@@ -97,6 +97,7 @@ $ python teardown.py
 
 * **Lina Alsahan** - *lialsahan@hbku.edu.qa* 
 * **Noureddine Lasla** - *nlasla@hbku.edu.qa* 
+* **Mohamed Abdallah** - *moabdallah@hbku.edu.qa*
 
 ## Conference paper
 https://arxiv.org/pdf/2002.01243.pdf
