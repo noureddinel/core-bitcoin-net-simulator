@@ -47,7 +47,7 @@ The following tools and packages must be installed in the machine:
 - python-tk
 
 ```
-$ python prerequisites.py 
+$ python Prerequisites.py 
 ```
 
 ### Tutorial for setting up a multi-nodes local bitcion network  
