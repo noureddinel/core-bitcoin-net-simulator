@@ -65,7 +65,7 @@ $ python localtestnet.py
 ```
 
 Note:
-- If you are generating the network for the first time, it will take more time for docker setup.
+- If you are generating the network for the first time, it will require few minutes in order to build and setup the docker image.
 
 
 Step 3: checking the docker continers' state
