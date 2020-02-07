@@ -31,11 +31,7 @@ Steps to make your first local Bitcoin testing network up and running on your lo
 
 ```
 $ git clone https://github.com/noureddinel/core-bitcoin-net-simulator
-```
 
-### Change the working directory:
-
-```
 $ cd core-bitcoin-net-simulator/
 ```
 
