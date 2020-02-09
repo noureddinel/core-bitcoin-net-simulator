@@ -38,9 +38,11 @@ $ cd core-bitcoin-net-simulator/
 ### Prerequisites
 
 The following tools and packages will be installed:
+
 Manually install the following: 
 - Docker * [Docker](https://phoenixnap.com/kb/how-to-install-docker-on-ubuntu-18-04) - To install Docker sucessfuly follow this link
 - Docker-compose * [Docker-compose](https://docs.docker.com/compose/install/)- To install Docker-compose sucessfuly follow this link
+
 Use the script below to automatically install the following:
 - pumba
 - matplotlib
