@@ -1,6 +1,6 @@
 # Core-Bitcoin Network Simulator for Performance Evaluation using Lightweight Virtualization
 
-Core-Bitcoin simulator is built on Docker technology to generate local Bitcoin network. The simulator is designed to test and assess the impact of any modifications to the original Bitcoin reference implementation. Moreover, it allows evaluating Bitcoin network performance under different realistic network conditions. The simulator can be also used by people who are new to the era of Bitcoin network to understand its key components, by interacting with the network through the command line interface of each Bitcoin node. 
+Core-Bitcoin simulator is built on Docker technology to generate local Bitcoin network. The simulator is designed to test and assess the impact of any modifications to the original Bitcoin reference implementation. Moreover, it allows evaluating Bitcoin network performance under different realistic network conditions. The simulator can be also used by people who are new to the area of Bitcoin network to understand its key components (nodes, wallet, mining, forks, balance ... etc.), by interacting with the network through the command line interface of each Bitcoin node. 
 
 Although Bitcoin reference implementation provides by default two testing environements namely, Testnet and Regtest, none of them support constructing an efficient local Bitcoin network. Testnet blockchain is a public test network on the Internet that does not give sufficient flexibilty to test the influence of various network parameters on the Bitcoin performance. The only local (private) test environement is offered by Regtest, however, in Regtest developpers can almost instantly generate blocks on demand for testing events and nodes cannot mimic the actual Bitcoin mining process.
 
@@ -38,9 +38,10 @@ $ cd core-bitcoin-net-simulator/
 ### Prerequisites
 
 The following tools and packages will be installed:
-
+Manually install the following: 
 - Docker * [Docker](https://phoenixnap.com/kb/how-to-install-docker-on-ubuntu-18-04) - To install Docker sucessfuly follow this link
 - Docker-compose * [Docker-compose](https://docs.docker.com/compose/install/)- To install Docker-compose sucessfuly follow this link
+Use the script below to automatically install the following:
 - pumba
 - matplotlib
 - statstics
@@ -52,7 +53,7 @@ $ python Prerequisites.py
 
 ### Tutorial for setting up a multi-nodes local bitcion network  
 
-Step 1: Open ports 10345,12342,12343,12344,12345,12346 on your host machine using the following command
+Step 1: open ports 10345,12342,12343,12344,12345,12346 on your host machine using the following command
 
 ```
 sudo ufw allow 10345,12342,12343,12344,12345,12346/tcp
@@ -74,7 +75,7 @@ Step 3: checking the docker continers' state
 $ docker ps
 ```
 
-Step 4: generating and view a performance report
+Step 4: generating and view a performance report during the simualtion 
 
 ```
 $ python getperformance.py
