@@ -6,7 +6,7 @@ services:
         - ALL 
       volumes:
         - ./bitcoin.conf:/root/.bitcoin/bitcoin.conf
-      command: bitcoind  -testnet  -server  -listen   -rpcuser=rpc -rpcpassword=x  -rpcport=10345 -port=12333 -addnode=10.7.0.1:12333 -addnode=10.7.0.2:12333 -addnode=10.7.0.3:12333 -addnode=10.7.0.4:12333 -addnode=10.7.0.5:12333 
+      command: bitcoind  -testnet  -server  -listen   -rpcuser=rpc -rpcpassword=x  -rpcport=10345 -port=12333 -addnode=10.7.0.1:12333 -addnode=10.7.0.2:12333 -addnode=10.7.0.3:12333 -addnode=10.7.0.4:12333 
       networks:
         vpcbr:
           ipv4_address: 10.7.0.2
@@ -20,7 +20,7 @@ services:
         - ALL 
       volumes:
         - ./bitcoin.conf:/root/.bitcoin/bitcoin.conf
-      command: bitcoind  -testnet  -server  -listen   -rpcuser=rpc -rpcpassword=x  -rpcport=10345 -port=12333 -addnode=10.7.0.1:12333 -addnode=10.7.0.2:12333 -addnode=10.7.0.3:12333 -addnode=10.7.0.4:12333 -addnode=10.7.0.5:12333 
+      command: bitcoind  -testnet  -server  -listen   -rpcuser=rpc -rpcpassword=x  -rpcport=10345 -port=12333 -addnode=10.7.0.1:12333 -addnode=10.7.0.2:12333 -addnode=10.7.0.3:12333 -addnode=10.7.0.4:12333 
       networks:
         vpcbr:
           ipv4_address: 10.7.0.3
@@ -34,7 +34,7 @@ services:
         - ALL 
       volumes:
         - ./bitcoin.conf:/root/.bitcoin/bitcoin.conf
-      command: bitcoind  -testnet  -server  -listen   -rpcuser=rpc -rpcpassword=x  -rpcport=10345 -port=12333 -addnode=10.7.0.1:12333 -addnode=10.7.0.2:12333 -addnode=10.7.0.3:12333 -addnode=10.7.0.4:12333 -addnode=10.7.0.5:12333 
+      command: bitcoind  -testnet  -server  -listen   -rpcuser=rpc -rpcpassword=x  -rpcport=10345 -port=12333 -addnode=10.7.0.1:12333 -addnode=10.7.0.2:12333 -addnode=10.7.0.3:12333 -addnode=10.7.0.4:12333 
       networks:
         vpcbr:
           ipv4_address: 10.7.0.4
@@ -48,26 +48,12 @@ services:
         - ALL 
       volumes:
         - ./bitcoin.conf:/root/.bitcoin/bitcoin.conf
-      command: bitcoind  -testnet  -server  -listen   -rpcuser=rpc -rpcpassword=x  -rpcport=10345 -port=12333 -addnode=10.7.0.1:12333 -addnode=10.7.0.2:12333 -addnode=10.7.0.3:12333 -addnode=10.7.0.4:12333 -addnode=10.7.0.5:12333 
+      command: bitcoind  -testnet  -server  -listen   -rpcuser=rpc -rpcpassword=x  -rpcport=10345 -port=12333 -addnode=10.7.0.1:12333 -addnode=10.7.0.2:12333 -addnode=10.7.0.3:12333 -addnode=10.7.0.4:12333 
       networks:
         vpcbr:
           ipv4_address: 10.7.0.5
       ports:
           - "12345:12333"
-
-
-  node5: 
-      build: .
-      cap_add: 
-        - ALL 
-      volumes:
-        - ./bitcoin.conf:/root/.bitcoin/bitcoin.conf
-      command: bitcoind  -testnet  -server  -listen   -rpcuser=rpc -rpcpassword=x  -rpcport=10345 -port=12333 -addnode=10.7.0.1:12333 -addnode=10.7.0.2:12333 -addnode=10.7.0.3:12333 -addnode=10.7.0.4:12333 -addnode=10.7.0.5:12333 
-      networks:
-        vpcbr:
-          ipv4_address: 10.7.0.6
-      ports:
-          - "12346:12333"
 
 
 networks:

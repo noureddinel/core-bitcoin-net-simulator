@@ -28,12 +28,13 @@ print(MASSAGE +'*********Welcome**********')
 print(MASSAGE +'Simulation Setup and Configuration.......')
 print(MASSAGE+'Tearing down existing setup')
 tearDownState = os.popen('python teardown.py').read()
-print(MASSAGE+tearDownState)
+print(tearDownState)
+print('Please enter the desired parameters to setup your simulation')
 #Network size (number of nodes): 
 num_nodes = int(raw_input(MASSAGE+"- Number of nodes:")) 
 
 #Validate the number of nodes entered by the user:
-if num_nodes == 0:
+if num_nodes < 2:
   print(WARNING +'\r\nERROR: Network generation process can not start with 0 nodes\r\n')
   exit()
 
@@ -72,17 +73,23 @@ print(MASSAGE +'Checking required files....')
 
 if (os.path.isfile(bitcoin_config) and  os.path.isfile(docker_compose) and os.path.isfile(dockerfile)): 
     print(MASSAGE +'All files exist....\r\nGenerating docker containers....')
+    print(MASSAGE+'It will take long time if this is the first time you use the run the simulator....')
     #Execute a shell command to generate and run docker containers:
-    docker_state = os.popen('docker-compose' + ' up' +' -d'+' --build').read()
+
+    os.system('docker-compose up -d --build')
     #Attach shells to each container and execute the miner command:
-    containers_list = os.popen('docker' + ' ps' + ' -aq').read()
+    containers_list = os.popen('docker ps -aq').read()
     containers_list = containers_list.splitlines()
     time.sleep(5)
     print(MASSAGE+"Continers are created successfully.....")
+    containers_names_list = os.popen('docker ps --format {{.Names}}').read()#get containers names
+    containers_names_list = containers_names_list.splitlines()
+
 
     #Number of mining cores for each miner:
     for x in xrange(0,num_nodes): 
-      num_cores.append(int(raw_input('- Number of cores for node in container %s : '%(containers_list[x]))))
+      C_names_only = containers_names_list[x][27:32]
+      num_cores.append(int(raw_input('- Number of cores for node  %s : '%(C_names_only))))
       
     #Block time:
     #B_time = int(raw_input("- Block time:"))
@@ -100,13 +107,37 @@ if (os.path.isfile(bitcoin_config) and  os.path.isfile(docker_compose) and os.pa
                 else:
                   break;
               for x in xrange(0,d_nodes):
-                   delays_list.append(raw_input('Delay for Node %s (ms):'%(containers_list[x])))
+                   C_names_only = containers_names_list[x][27:32]
+
+                   while(1):
+                       delay = (raw_input('Delay for Node %s (ms):'%(C_names_only)))
+                       if (unicode(delay).isnumeric()):
+                           delays_list.append(delay)
+                           break;
+                       else:
+                          print(WARNING+'Invalid input ! please enter numeric values only')
+                          print(MASSAGE)
               jitter_response = raw_input('Add delay Jitter?(y/n):')
               if jitter_response == 'y' or jitter_response == 'Y' :
                     jitter_response = 1
                     for x in xrange(0,d_nodes):
-                        jitter_list.append(raw_input('Delay Jitter for Node %s (ms):'%(containers_list[x])))
-                        jitter_type.append(raw_input('Delay distribution for Node %s (normal/pareto):'%(containers_list[x])))
+                        C_names_only = containers_names_list[x][27:32]
+                        while(1):
+                        	jitter = (raw_input('Delay Jitter for Node %s (ms):'%(C_names_only)))
+                        	if (unicode(jitter).isnumeric()):
+	                        	jitter_list.append(jitter)
+                           		break;
+		                    else:
+		                        print(WARNING+'Invalid input ! please enter numeric values only')
+		                        print(MASSAGE)
+		                while(1):
+                       		 j_type = (raw_input('Delay distribution for Node %s (normal/pareto):'%(C_names_only)))
+                       		 if j_type == 'normal ' or j_type == 'Normal' or j_type == 'pareto' or j_type =='Pareto':
+                       		    jitter_type.append(j_type)
+                       		    break;
+                       		 else:
+                       		 	print(WARNING+'Invalid input ! please enter normal or pareto')
+		                        print(MASSAGE)
                     break;
               elif jitter_response == 'n' or jitter_response == 'N' :
                     jitter_response = 0
@@ -134,10 +165,7 @@ if (os.path.isfile(bitcoin_config) and  os.path.isfile(docker_compose) and os.pa
 
     #Setup the miner in each node: 
     for k in range(0,num_nodes):
-       miner_startup = os.popen('docker ' + 'exec ' + '-it ' + containers_list[k] + ' bitcoin-cli setgenerate true %d' %(num_cores[k])).read()
-       miner_state = os.popen('docker ' + 'exec ' + '-it ' + containers_list[k] + ' bitcoin-cli getgenerate ').read()
-       #Check the status of each miner:
-       print(MASSAGE +'Miner of node (%s) status is %s'%(containers_list[k],miner_state))
+       miner_startup = os.system('docker exec -it ' + containers_list[k] + ' bitcoin-cli setgenerate true %d' %(num_cores[k]))
     #Record the start of the experiment:
     start = time.time()
     print(MASSAGE +'Testnet is up and running for %s .....\nA performance report will be generated and saved in the current directory at the end of the simulation....'%(Duration_r))
@@ -150,17 +178,17 @@ if len(missing_files) != 0:
   %s')%(missing_files)
 
 #Apply network emulation:
-containers_names_list = os.popen('docker ps --format {{.Names}}').read() #get containers names
-containers_names_list = containers_names_list.splitlines()
+
 if delay_response == 1:
     duration_h = (Duration/60)/60
     if jitter_response == 1:
         for x in xrange(0,d_nodes):
             print('pubmba%d'%(x))
-            os.popen('pumba -l info  netem --duration %s  delay --time %s %sms -d %s %s &'%(str(Duration_r),delays_list[x],jitter_list[x],jitter_type[x],str(containers_names_list[x])))
+            os.system('pumba -l info  netem --duration %s  delay --time %s %sms -d %s %s &'%(str(Duration_r),delays_list[x],jitter_list[x],jitter_type[x],str(containers_names_list[x])))
     else:
         for x in xrange(0,d_nodes):
-            os.popen('pumba -l info netem --duration %s delay --time %s %s &'%(str(Duration_r)),delays_list[x],str(containers_names_list[x]))
+            os.system('pumba -l info netem --duration ' + str(Duration_r) + ' delay --time ' + delays_list[x] +' '+str(containers_names_list[x]) +' &')
+            #            os.system('pumba -l info netem --duration %s delay --time %s %s &'%(str(Duration_r)),delays_list[x],str(containers_names_list[x]))
     print(MASSAGE+'Network emulation is running......')
 print(MASSAGE+'Local Bitcoin testing network is up and running.....')
 #Monitor experiment timer:
@@ -171,13 +199,15 @@ while (1):
 
 #Display the performance report and save it to a log file:
 if os.path.isfile('performanceReport'):
-   run_performance = os.popen('python getperformance.py > performanceReport_Recent.txt').read()
+   run_performance = os.system('python getperformance.py > performanceReport_Recent.txt')
 else:   
-   run_performance = os.popen('python getperformance.py > performanceReport.txt').read()
+   run_performance = os.system('python getperformance.py > performanceReport.txt')
+print('  ')
 print('Perfomance report was generated successfully...')
 
 #Stop the miners in each node:
-stopminers = os.popen('python stopminers.py').read()
+time.sleep(4)
+stopminers = os.system('python stopminers.py')
 try:
   sys.stdout.close()
 except:
@@ -186,3 +216,4 @@ try:
   sys.stderr.close()
 except:
   pass
+
