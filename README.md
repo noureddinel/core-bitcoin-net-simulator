@@ -50,7 +50,7 @@ Use the script below to automatically install the following:
 - python-tk
 
 ```
-$ python Prerequisites.py 
+$ python prerequisites.py 
 ```
 
 ### Tutorial for setting up a multi-nodes local bitcion network  
