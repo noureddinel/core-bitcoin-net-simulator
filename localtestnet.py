@@ -127,7 +127,7 @@ if (os.path.isfile(bitcoin_config) and  os.path.isfile(docker_compose) and os.pa
                         	if (unicode(jitter).isnumeric()):
 	                        	jitter_list.append(jitter)
                            		break;
-		                    else:
+		                else:
 		                        print(WARNING+'Invalid input ! please enter numeric values only')
 		                        print(MASSAGE)
 		                while(1):
