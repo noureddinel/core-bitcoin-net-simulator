@@ -73,7 +73,7 @@ print(MASSAGE +'Checking required files....')
 
 if (os.path.isfile(bitcoin_config) and  os.path.isfile(docker_compose) and os.path.isfile(dockerfile)): 
     print(MASSAGE +'All files exist....\r\nGenerating docker containers....')
-    print(MASSAGE+'It will take long time if this is the first time you use the run the simulator....')
+    print(MASSAGE+'It will take long time if this is the first simulation you run....')
     #Execute a shell command to generate and run docker containers:
 
     os.system('docker-compose up -d --build')
